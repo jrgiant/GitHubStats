@@ -11,6 +11,9 @@ display:grid;
   position:relative;
   text-align:left;
   padding-left:30px;
+  word-wrap:break-word;
+  width:75%
+  overflow:hidden;
   svg {
      position:absolute;
         left: 1%;
@@ -19,7 +22,7 @@ display:grid;
 
 `;
 const Description = styled.p`
-  color:lightgray;
+  color:gray;
   grid-row:2
   display:grid;
   overflow:hidden;
@@ -36,7 +39,7 @@ const Description = styled.p`
 `;
 const Container = styled.div`
   display:grid;
-  grid-template-rows: 70px 1fr 30px;
+  grid-template-rows: 1fr 2fr 30px;
   grid-template-columns:1fr;
   background-color:white;
   border: 1px solid grey;
@@ -57,10 +60,13 @@ class GitHubRepository extends Component {
   // SVG(name){
   //   return Parser.parse(octicons.repo.toSVG())
   // }
+  // handleClick(props) {
+  //   alert(`You clicked ${props.name}`);
+  // }
   render() {
     return (
-      <Container>
-        <Header><Octicons svg="repo" /><a href={this.props.url} title="GoTo the repository">{this.props.user}/{this.props.name}</a></Header>
+      <Container onClick={handleClick.bind(this, this.props)}>
+        <Header><Octicons svg="repo" />{this.props.name}</Header>
         <Description>{this.props.desc}</Description>
         <Footer><GitHubLabel name="Forks" svg="repo-forked" value={this.props.forks} /><GitHubLabel name="Stars" svg="star" value={this.props.stars} /></Footer>
       </Container>
@@ -73,9 +79,10 @@ GitHubRepository.propTypes = {
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   desc: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
 };
 GitHubRepository.defaultProps = {
 
 };
+function handleClick(props) {
+  alert(`You clicked ${props.name}`);
+}

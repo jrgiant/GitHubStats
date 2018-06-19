@@ -14,7 +14,7 @@ const BlockLabel = styled.label`
 let idNumber = 0;
 // will use current idNumber or create a new instance.
 
-class NumberInput extends Component {
+class Input extends Component {
   constructor(props) {
     super(props);
     this.label = this.props.label || null;
@@ -30,13 +30,13 @@ class NumberInput extends Component {
     return (
       <div>
         <label htmlFor={this.id}>{this.label}</label>
-        <Number type="Number" placeholder={this.placeholder} {...(this.value !== null ? { value: this.value } : {})} id={this.id} name={this.id} />
+        <Number type="Number" placeholder={this.placeholder} {...(this.value !== null ? { value: this.value } : '')} id={this.id} name={this.id} />
       </div>
     );
   }// ./withLabel
   Base() {
     return (
-      <Number type="Number" placeholder={this.placeholder} {...(this.value !== null ? { value: this.value } : {})} id={this.id} name={this.id} />
+      <Number type="text" placeholder={this.placeholder} {...(this.value !== null ? { value: this.value } : '')} id={this.id} name={this.id} />
     );
   }// ./base;
   /**
@@ -59,8 +59,8 @@ class NumberInput extends Component {
     return this.WithLabel();
   }// ./render
 }// ./NumberInput
-export default NumberInput;
-NumberInput.propTypes = {
+export default Input;
+Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.node,
@@ -68,10 +68,10 @@ NumberInput.propTypes = {
   inline: PropTypes.bool,
 
 };
-NumberInput.defaultProps = {
+Input.defaultProps = {
   label: null,
-  placeholder: 'Enter a number',
-  value: {},
+  placeholder: 'Enter a Term',
+  value: '',
   id: false,
   inline: false,
 };
