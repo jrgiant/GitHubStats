@@ -1,13 +1,24 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { octicons } from 'octicons';
+import Octicons from './octicons';
+// import ReactHtmlParser from 'react-html-parser';
 
 const MainLabel = styled.div`
   font-size:1rem;
 `;
 const Label = styled.div`
   display:grid;
+  position: relative;
+  text-align:left;
+  ${props => (props.svg ? `padding-left:30px;
+    svg {
+    
+    position:absolute;
+    
+    left:10px;
+  ` : '')}
+  }
 `;
 
 class GitHubLabel extends Component {
@@ -18,27 +29,24 @@ class GitHubLabel extends Component {
     this.svg = this.props.svg;
     this.value = this.props.value;
   }
-  SVG() {
-    return octicons[this.svg].toSVG();
-  }
   Label() {
     let compiledLabel;
     if (this.svg !== null) {
       compiledLabel = (
-        <Label>
-          {this.SVG() }
-          <MainLabel>{this.value}</MainLabel>
+        <Label svg="true">
+          <Octicons svg={this.svg} />
+          <MainLabel>{this.name}: {this.value}</MainLabel>
         </Label>
       );
     } else {
       compiledLabel = (
-        <Label> <MainLabel>{this.value}</MainLabel></Label>
+        <Label> <MainLabel>{this.name}: {this.value}</MainLabel></Label>
       );
     }
     return compiledLabel;
   }
   render() {
-    return Label();
+    return this.Label();
   }
 }
 export default GitHubLabel;
