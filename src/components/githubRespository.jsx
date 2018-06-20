@@ -12,7 +12,7 @@ display:grid;
   text-align:left;
   padding-left:30px;
   word-wrap:break-word;
-  width:75%
+  width:65%
   overflow:hidden;
   svg {
      position:absolute;
