@@ -27,7 +27,7 @@ class App extends Component {
     this.state = {
       repositorties: [],
       selectedRepository: {},
-      numberOfResultPages: 0,
+      // numberOfResultPages: 0,
     };
   }
 
@@ -56,7 +56,7 @@ class App extends Component {
         const qs = url.split('?')[1];
         let page = 1;
         const total = parseInt(parseInt(reps.total_count, 10) / 100, 10) + 1;
-        console.log(`Total: ${total}`);
+        // console.log(`Total: ${total}`);
         if (qs.indexOf('page') > -1) {
           page = parseInt(qs.split('&').filter(p => p.indexOf('page') > -1)[0].split('=')[1], 10);
         }
@@ -103,7 +103,10 @@ class App extends Component {
           });
           pages.appendChild(nextLink);
         }
-        this.setState({ repositorties: reps.items, numberOfResultPages: total });
+        this.setState({
+          repositorties: reps.items,
+          // numberOfResultPages: total,
+        });
       });
     };
 
@@ -115,7 +118,7 @@ class App extends Component {
     searchButton.addEventListener('click', preformSearch);
     search.addEventListener('keyup', (e) => {
       const key = e.which || e.keyCode;
-      console.log(key);
+      // console.log(key);
       if (key === 13) preformSearch();
     });
   }

@@ -78,9 +78,9 @@ GitHubRepository.propTypes = {
   name: PropTypes.string.isRequired,
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
-  desc: PropTypes.string.isRequired,
+  desc: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
 };
 GitHubRepository.defaultProps = {
-
+  desc: 'NO DESCRIPTION PROVIDED',
 };
