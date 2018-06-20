@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Octicons from './octicons';
 import GitHubLabel from './githubLabels';
 
-const Header = styled.h2`
+export const Header = styled.h2`
 font-family:arial;
 display:grid;
   grid-row:1;
@@ -17,11 +17,11 @@ display:grid;
   svg {
      position:absolute;
         left: 1%;
-    top: 25%;
+    top: 6px;
   }
 
 `;
-const Description = styled.p`
+export const Description = styled.p`
   color:gray;
   grid-row:2
   display:grid;
@@ -37,7 +37,7 @@ const Description = styled.p`
     bottom:0;
   }
 `;
-const Container = styled.div`
+export const Container = styled.div`
   display:grid;
   grid-template-rows: 1fr 2fr 30px;
   grid-template-columns:1fr;
@@ -65,7 +65,7 @@ class GitHubRepository extends Component {
   // }
   render() {
     return (
-      <Container onClick={handleClick.bind(this, this.props)}>
+      <Container onClick={this.props.handleClick}>
         <Header><Octicons svg="repo" />{this.props.name}</Header>
         <Description>{this.props.desc}</Description>
         <Footer><GitHubLabel name="Forks" svg="repo-forked" value={this.props.forks} /><GitHubLabel name="Stars" svg="star" value={this.props.stars} /></Footer>
@@ -79,10 +79,8 @@ GitHubRepository.propTypes = {
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   desc: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 GitHubRepository.defaultProps = {
 
 };
-function handleClick(props) {
-  alert(`You clicked ${props.name}`);
-}

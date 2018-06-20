@@ -64,7 +64,7 @@ Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.node,
-  id: PropTypes.number,
+  id: PropTypes.string,
   inline: PropTypes.bool,
 
 };
@@ -72,6 +72,6 @@ Input.defaultProps = {
   label: null,
   placeholder: 'Enter a Term',
   value: '',
-  id: false,
+  id: '',
   inline: false,
 };
