@@ -15,7 +15,7 @@ const Footer = styled.div`
 `;
 const Container = styled.div`
     display:grid;
-  grid-template-rows: 100px 200px 30px 1fr;
+  grid-template-rows: 100px 100px 30px 1fr;
   grid-template-columns:1fr;
   background-color:white;
   border: 1px solid grey;
