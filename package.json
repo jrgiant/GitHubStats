@@ -1,0 +1,23 @@
+{
+  "name": "githubstats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service-worker.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrgiant/GitHubStats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrgiant/GitHubStats/issues"
+  },
+  "homepage": "https://github.com/jrgiant/GitHubStats#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "http": "0.0.0"
+  }
+}
