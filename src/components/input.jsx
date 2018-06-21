@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const Number = styled.input`
+  margin-bottom:5px;
 `;
 const BlockLabel = styled.label`
     display: block;

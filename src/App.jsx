@@ -10,16 +10,16 @@ import './App.css';
 
 const Box = styled.div`
   display:grid;
-  grid-template-columns:repeat(auto-fill, 300px);
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
   width:80%;
-  max-width:1000px;
   margin-left:auto;
   margin-right:auto;
+  max-height:70vh;
+  overflow-y:auto;
   gap:20px;
   @media (max-width:768px){
     width:100%;
   }
-
 `;
 class App extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class App extends Component {
     this.state = {
       repositorties: [],
       selectedRepository: {},
+      currentUrl: '',
       // numberOfResultPages: 0,
     };
   }
@@ -36,13 +37,10 @@ class App extends Component {
     const searchButton = document.querySelector('#search-button');
     const output = document.querySelector('#output');
     const pages = document.querySelector('#pages');
+    const radios = document.querySelectorAll('input[name="sortBy"]');
+
     const clearOldData = () => {
-      output.innerHTML = `
-        <div class="search-gh"><img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/github.svg" alt="">
-          <div class="overlay"><img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=05eb19761edddd58032dd4b6668dae3a" alt="">
-          </div>
-        </div>
-      `;
+      output.style.display = 'block';
       this.setState({
         repositorties: [],
         selectedRepository: {},
@@ -51,7 +49,7 @@ class App extends Component {
     const fetchResults = (url) => {
       fetch(url).then(response => response.json()).then((reps) => {
         // console.log(reps);
-        output.innerHTML = '';
+        output.removeAttribute('style');
         pages.innerHTML = '';
         const qs = url.split('?')[1];
         let page = 1;
@@ -72,7 +70,7 @@ class App extends Component {
             link.addEventListener('click', (e) => {
               e.preventDefault();
               clearOldData();
-              newURL = `https://api.github.com/search/repositories?q=${search.value}&sort=updated&page=2`;
+              newURL = `${this.state.currentUrl}&page=2`;
               fetchResults(newURL);
             });
             pages.appendChild(link);
@@ -85,7 +83,7 @@ class App extends Component {
           backLink.addEventListener('click', (e) => {
             e.preventDefault();
             clearOldData();
-            newURL = `https://api.github.com/search/repositories?q=${search.value}&sort=updated&page=${page - 1}`;
+            newURL = `${this.state.currentUrl}&page=${page - 1}`;
             fetchResults(newURL);
           });
           pages.appendChild(backLink);
@@ -98,7 +96,7 @@ class App extends Component {
           nextLink.addEventListener('click', (e) => {
             e.preventDefault();
             clearOldData();
-            newURL = `https://api.github.com/search/repositories?q=${search.value}&sort=updated&page=${page - 1}`;
+            newURL = `${this.state.currentUrl}&page=${page - 1}`;
             fetchResults(newURL);
           });
           pages.appendChild(nextLink);
@@ -111,10 +109,23 @@ class App extends Component {
     };
 
     const preformSearch = () => {
-      const url = `https://api.github.com/search/repositories?q=${search.value}&sort=updated`;
+      const sorter = document.querySelector('input[name="sortBy"].checked');
+      const direction = sorter.dataset.orderBy;
+      const url = `https://api.github.com/search/repositories?q=${search.value}&sort=${sorter.id}&order=${direction}`;
+      this.setState({
+        currentUrl: url,
+      });
       clearOldData();
       fetchResults(url);
     };
+    radios.forEach((s) => {
+      s.addEventListener('click', (e) => {
+        const rad = e.target; if (rad.classList.contains('checked')) { rad.dataset.orderBy = rad.dataset.orderBy === 'desc' ? 'asc' : 'desc'; } else { radios.forEach(i => i.classList.remove('checked')); rad.classList.add('checked'); rad.dataset.orderBy = 'desc'; }
+        if (rad.dataset.orderBy === 'asc') rad.classList.add('asc');
+        else rad.classList.remove('asc');
+        preformSearch();
+      });
+    });
     searchButton.addEventListener('click', preformSearch);
     search.addEventListener('keyup', (e) => {
       const key = e.which || e.keyCode;
@@ -157,6 +168,10 @@ class App extends Component {
           {/* <Octicons svg="mark-github" /> */}
           <h1 className="App-title">Search for a repository on GitHub</h1>
           <div><Input id="search-term" /><button id="search-button" type="button">Search</button></div>
+          Sort By:
+          <div className="radio"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" checked="checked" /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
+          <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Forks<i className="arrow" /></label></div>
+          <div className="radio"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Stars<i className="arrow" /></label></div>
         </header>
         {Object.keys(this.state.selectedRepository).length === 0 && this.state.selectedRepository.constructor === Object ? '' :
 
@@ -170,7 +185,12 @@ class App extends Component {
         />
 
            }
-        <div id="output" />
+        <div id="output">
+          <div className="search-gh"><img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/github.svg" alt="" />
+            <div className="overlay"><img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=05eb19761edddd58032dd4b6668dae3a" alt="" />
+            </div>
+          </div>
+        </div>
         <Box>
           {this.state.repositorties.map(rep => (<GitHubRepository
             url="#"

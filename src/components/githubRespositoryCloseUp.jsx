@@ -65,10 +65,10 @@ GitHubRepositoryCloseUp.propTypes = {
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   commits: PropTypes.node.isRequired,
-  desc: PropTypes.string.isRequired,
+  desc: PropTypes.string,
   language: PropTypes.string.isRequired,
   // handleClick: PropTypes.func.isRequired,
 };
 GitHubRepositoryCloseUp.defaultProps = {
-
+  desc: '',
 };

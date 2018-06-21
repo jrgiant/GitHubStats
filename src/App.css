@@ -4,7 +4,7 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 60px;
 }
 
 .App-header {
@@ -16,10 +16,15 @@
 
 .App-title {
   font-size: 1.5em;
+  margin-bottom: 5px;
 }
 
 .App-intro {
   font-size: large;
+}
+
+#output {
+  display: none;
 }
 
 @keyframes App-logo-spin {
@@ -34,8 +39,8 @@
 .search-gh {
   width: 300px;
   position: absolute;
-  top:45vh;
-  left:40vw;
+  top: 45vh;
+  left: 40vw;
 }
 
 .search-gh img {
@@ -92,4 +97,41 @@
     -webkit-clip-path: circle(18% at 84% 75%);
     clip-path: circle(18% at 84% 75%);
   }
+}
+
+.radio {
+  display: inline;
+}
+
+input[name="sortBy"].checked~label {
+  font-weight: bold;
+}
+
+input[name="sortBy"] {
+  display: none;
+}
+
+input[name="sortBy"]~label {
+  padding: 0 10px;
+  border-right: 1px solid white;
+  padding-right: 20px;
+  position: relative;
+}
+
+input[name="sortBy"]~label:last-child {
+  border-right: none;
+}
+
+i.arrow {
+  position: absolute;
+  right: 2px;
+  top: 0.2rem;
+  background-color: white;
+  height: 10px;
+  width: 10px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+input[name="sortBy"].asc~label i.arrow {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
