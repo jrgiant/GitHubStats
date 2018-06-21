@@ -109,6 +109,7 @@ class App extends Component {
     };
 
     const preformSearch = () => {
+      if (search.value === '') return false;
       const sorter = document.querySelector('input[name="sortBy"].checked');
       const direction = sorter.dataset.orderBy;
       const url = `https://api.github.com/search/repositories?q=${search.value}&sort=${sorter.id}&order=${direction}`;
@@ -117,6 +118,7 @@ class App extends Component {
       });
       clearOldData();
       fetchResults(url);
+      return true;
     };
     radios.forEach((s) => {
       s.addEventListener('click', (e) => {
@@ -169,7 +171,7 @@ class App extends Component {
           <h1 className="App-title">Search for a repository on GitHub</h1>
           <div><Input id="search-term" /><button id="search-button" type="button">Search</button></div>
           Sort By:
-          <div className="radio"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" checked="checked" /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
+          <div className="radio"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" defaultChecked /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
           <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Forks<i className="arrow" /></label></div>
           <div className="radio"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Stars<i className="arrow" /></label></div>
         </header>

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactChartkick, { LineChart } from 'react-chartkick';
+import Chart from 'chart.js';
 import Octicons from './octicons';
 import GitHubLabel from './githubLabels';
 import { Header, Description } from './githubRespository';
@@ -23,6 +25,7 @@ const Container = styled.div`
   margin-right:auto;
   text-align:left;
 `;
+ReactChartkick.addAdapter(Chart);
 class GitHubRepositoryCloseUp extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +38,14 @@ class GitHubRepositoryCloseUp extends Component {
   //   alert(`You clicked ${props.name}`);
   // }
   render() {
+    const data = [];
+    if (this.props.commits.length > 0) {
+      this.props.commits.forEach((com) => {
+        const d = new Date(com.commit.author.date).toDateString();
+        data[d] = (data[d] || 0) + 1;
+      });
+      console.table(data);
+    }
     return (
       <Container>
         <Header><Octicons svg="repo" />{this.props.name}</Header>
@@ -45,6 +56,7 @@ class GitHubRepositoryCloseUp extends Component {
           <GitHubLabel name="Commits (last 7 days)" svg="git-commit" value={this.props.commits.length} />
           <GitHubLabel name="Language" svg="file-code" value={this.props.language} />
         </Footer>
+        <LineChart data={{ ...data }} />
         Commits made within 7 days:
         <ul>
           {this.props.commits.map(com => (
@@ -64,7 +76,7 @@ GitHubRepositoryCloseUp.propTypes = {
   name: PropTypes.string.isRequired,
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
-  commits: PropTypes.node.isRequired,
+  commits: PropTypes.array.isRequired, //eslint-disable-line
   desc: PropTypes.string,
   language: PropTypes.string.isRequired,
   // handleClick: PropTypes.func.isRequired,

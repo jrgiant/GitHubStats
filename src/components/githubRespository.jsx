@@ -39,11 +39,11 @@ export const Description = styled.p`
 `;
 export const Container = styled.div`
   display:grid;
-  grid-template-rows: 1fr 2fr 30px;
+  grid-template-rows: 1fr 1fr 30px;
   grid-template-columns:1fr;
   background-color:white;
   border: 1px solid grey;
-  height:300px;
+  height:225px;
   padding:20px;
   `;
 const Footer = styled.div`
