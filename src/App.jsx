@@ -41,6 +41,7 @@ class App extends Component {
 
     const clearOldData = () => {
       output.style.display = 'block';
+      pages.innerHTML = '';
       this.setState({
         repositorties: [],
         selectedRepository: {},
@@ -142,6 +143,8 @@ class App extends Component {
    */
   handleClick(repository) {
     const pages = document.querySelector('#pages');
+    const output = document.querySelector('#output');
+    output.style.display = 'block';
     pages.innerHTML = '';
     this.setState({
       repositorties: [],
@@ -156,6 +159,7 @@ class App extends Component {
         const hold = repository;
         hold.commits = commits;
         // console.log(hold);
+        output.removeAttribute('style');
         this.setState({
           selectedRepository: hold,
         });
