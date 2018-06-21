@@ -1,5 +1,13 @@
+body {
+  background-image: url(https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=05eb19761edddd58032dd4b6668dae3a);
+  background-size: cover;
+  background-position: center;
+}
+
 .App {
   text-align: center;
+  background-color: rgba(255,255,255,.95);
+  height:100vh;
 }
 
 .App-logo {
@@ -24,7 +32,7 @@
 }
 
 #output {
-  display: none;
+  display:none;
 }
 
 @keyframes App-logo-spin {
@@ -118,7 +126,7 @@ input[name="sortBy"]~label {
   position: relative;
 }
 
-input[name="sortBy"]~label:last-child {
+.class:last-child label {
   border-right: none;
 }
 
