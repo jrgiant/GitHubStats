@@ -7,9 +7,9 @@ const port = process.env.PORT || 8080;
 
 http.createServer((req, res) => {
   let requestUrl = url.parse(req.url).pathname || 'index.html';
-  requestUrl = `${process.cwd()}\\${requestUrl}`;
-  if (fs.statSync(requestUrl).isDirectory()) requestUrl += '\\index.html';
-
+  requestUrl = path.join(__dirname, requestUrl);
+  if (fs.statSync(requestUrl).isDirectory()) requestUrl = path.join(requestUrl, 'index.html');
+  console.log(requestUrl);
   try {
     const contentTypes = {
 
