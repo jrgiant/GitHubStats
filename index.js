@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
+const port = process.env.PORT || 8080;
+
 http.createServer((req, res) => {
   let requestUrl = url.parse(req.url).pathname || 'index.html';
   requestUrl = `${process.cwd()}\\${requestUrl}`;
@@ -38,4 +40,4 @@ http.createServer((req, res) => {
     res.write(`<!DOCTYPE HTML><html><head><title>SERVER ERROR</title><body>${error.message}</body></html>`);
     res.end();
   }
-}).listen(8080);
+}).listen(port);
