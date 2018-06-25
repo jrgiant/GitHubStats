@@ -1,9 +1,41 @@
-var http = require('http');
-var fs = require('fs');
-http.createServer(function (req, res) {
-  fs.readFile('index.html', function (err, data) {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(data);
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
+
+http.createServer((req, res) => {
+  let requestUrl = url.parse(req.url).pathname || 'index.html';
+  requestUrl = `${process.cwd()}\\${requestUrl}`;
+  if (fs.statSync(requestUrl).isDirectory()) requestUrl += '\\index.html';
+
+  try {
+    const contentTypes = {
+
+      '.html': 'text/html',
+      '.css': 'text/css',
+      '.js': 'text/javascript',
+      '.svg': 'image/svg+xml',
+
+    };
+    fs.readFile(requestUrl, (err, data) => {
+      if (err === null) {
+        const header = {};
+        const contentType = contentTypes[path.extname(requestUrl)];
+        if (contentType) {
+          header.contentType = contentType;
+        }
+        res.writeHead(200, header);
+        res.write(data);
+        res.end();
+      } else {
+        res.writeHead(404, { 'content-type': 'text/html' });
+        res.write(`<!DOCTYPE HTML><html><head><title>${err.message}</title><body>${err.message}</body></html>`);
+        res.end();
+      }
+    });
+  } catch (error) {
+    res.writeHead(500, { 'content-type': 'text/html' });
+    res.write(`<!DOCTYPE HTML><html><head><title>SERVER ERROR</title><body>${error.message}</body></html>`);
     res.end();
-  });
-}).listen(8080);
+  }
+}).listen(80);

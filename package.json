@@ -2,7 +2,7 @@
   "name": "githubstats",
   "version": "1.0.0",
   "description": "",
-  "main": "service-worker.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
