@@ -9,13 +9,14 @@ import './App.css';
 
 const Box = styled.div`
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
-  width:80%;
+  grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
   margin-left:auto;
   margin-right:auto;
   max-height:70vh;
   overflow-y:auto;
   gap:20px;
+  padding:10px;
+  background-color:#f5f7dc;
   @media (max-width:768px){
     width:100%;
   }

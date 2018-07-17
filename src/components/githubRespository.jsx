@@ -31,7 +31,7 @@ export const Description = styled.p`
   &:after {
     content:'';
     height:30px;
-    width:100%;
+    width:80%;
     background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
     position:absolute;
     bottom:0;

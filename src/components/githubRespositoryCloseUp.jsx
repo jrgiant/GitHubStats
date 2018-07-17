@@ -20,7 +20,7 @@ const Container = styled.div`
   background-color:white;
   border: 1px solid grey;
   padding:20px;
-  width:70%;
+  width:100%;
   margin-left:auto;
   margin-right:auto;
   text-align:left;
