@@ -12,6 +12,7 @@
 
 #output {
   display: none;
+  background-color: #f5f7dc;
 }
 
 section.search {
