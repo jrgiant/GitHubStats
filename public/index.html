@@ -21,11 +21,52 @@
     -->
     <title>Search GitHub Repositories</title>
     <style>
+      .container {
+         max-width: 1200px;
+        margin-left: auto;
+         margin-right: auto;
+         box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+         border: 1px solid lightgray;
+      }
+      .container > header {
+        background-image: url(http://res.cloudinary.com/jrgiantdev/image/upload/b_rgb:6559f3,c_scale,f_auto,o_92,q_auto:good,w_1200/v1531844661/markus-spiske-518966-unsplash_1_bhznls.jpg);
+        background-size: cover;
+        position: relative;
+        display:grid;
+        grid-template-columns: 350px 1fr;
+      }
+      .container > header::before {
+        content: '';
+        position: absolute;
+        width:100%;
+        height: 100%;
+        background: #6559F3;
+        mix-blend-mode: lighten;
+        opacity: 0.97;
+      }
+      .container > header h1 {
+        color: black;
+    font-size: 6.9rem;
+    text-shadow: 4px 4px 4px #F5F7DC;
+    position: relative;
+    font-family: stockport;
+    /* padding-left: 70px; */
+    margin: 0;
+    margin-top: 25px;
+    margin-left: 25px;
+      }
       .search-gh {
   width: 300px;
   position: absolute;
   top: 45vh;
   left: 40vw;
+}
+header .search-gh {
+  position: relative;
+  top:0;
+  left:20px;
+  background: radial-gradient(#FFffff 68%, rgba(255,255,255,0) 10%);
+  border-radius: 50%;
 }
 
 .search-gh img {
@@ -38,10 +79,14 @@
   width: 300px;
   position: absolute;
   top: 0;
-  -webkit-clip-path: circle(18% at 16% 75%);
-  clip-path: circle(18% at 16% 75%);
+  -webkit-clip-path: circle(18% at 16% 25%);
+  clip-path: circle(18% at 16% 25%);
   -webkit-animation: animateSearch 2s infinite;
   animation: animateSearch 2s infinite;
+}
+header .search-gh .overlay {
+   -webkit-animation: animateSearch 2s 3;
+  animation: animateSearch 2s 3;
 }
 
 @-webkit-keyframes animateSearch {
@@ -89,14 +134,28 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <div class="container">
+    <header>
+      <div class="search-gh">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/github.svg" alt="" />
+        <div class="overlay">
+          <img src="http://res.cloudinary.com/jrgiantdev/image/upload/b_rgb:6559f3,c_scale,f_auto,o_92,q_auto:good,w_1200/v1531844661/markus-spiske-518966-unsplash_1_bhznls.jpg"
+            alt="" />
+        </div>
+      </div>
+      
+      <h1>Search GitHub Repositories</h1>
+      
+    </header>
     <div id="root">
       <div class="search-gh">
         <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/github.svg" alt="" />
         <div class="overlay">
-          <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=05eb19761edddd58032dd4b6668dae3a"
+          <img src="http://res.cloudinary.com/jrgiantdev/image/upload/b_rgb:6559f3,c_scale,f_auto,o_92,q_auto:good,w_1200/v1531844661/markus-spiske-518966-unsplash_1_bhznls.jpg"
             alt="" />
         </div>
       </div>
+    </div>
     </div>
     <!--
       This HTML file is a template.
