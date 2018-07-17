@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import logo from './github.svg';
 import GitHubRepository from './components/githubRespository';
 import GitHubRepositoryCloseUp from './components/githubRespositoryCloseUp';
 import Input from './components/input';
@@ -169,16 +168,14 @@ class App extends Component {
     // const desc = 'Quis mollit velit culpa et eu enim duis occaecat anim quis est. Nostrud eiusmod tempor sunt occaecat enim reprehenderit laboris dolor non exercitation quis amet. Est pariatur ad culpa et incididunt pariatur.';
     const html = (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {/* <Octicons svg="mark-github" /> */}
-          <h1 className="App-title">Search for a repository on GitHub</h1>
+        <section className="search">
           <div><Input id="search-term" /><button id="search-button" type="button">Search</button></div>
-          Sort By:
-          <div className="radio"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" defaultChecked /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
-          <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Forks<i className="arrow" /></label></div>
-          <div className="radio"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Stars<i className="arrow" /></label></div>
-        </header>
+          <div className="radio-list">
+            <div className="radio radio-inline-first"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" defaultChecked /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
+            <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Forks<i className="arrow" /></label></div>
+            <div className="radio radio-inline-last"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Stars<i className="arrow" /></label></div>
+          </div>
+        </section>
         {Object.keys(this.state.selectedRepository).length === 0 && this.state.selectedRepository.constructor === Object ? '' :
 
         <GitHubRepositoryCloseUp

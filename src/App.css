@@ -3,47 +3,46 @@
   background-size: cover;
   background-position: center;
 } */
+
 .App {
   text-align: center;
-  background-color: rgba(255,255,255,.95);
-  height:100vh;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 60px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-  margin-bottom: 5px;
-}
-
-.App-intro {
-  font-size: large;
+  background-color: rgba(255, 255, 255, .95);
+  height: 100vh;
 }
 
 #output {
-  display:none;
+  display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+section.search {
+  background-color: #bcebcb;
+  text-align: center;
+  height: 264px;
 }
+
+input#search-term {
+  line-height: 62px;
+  font-size: 50px;
+  border-radius: 10px;
+  margin-top: 95px;
+  margin-right: 80px;
+}
+
+button#search-button {
+  font-size: 50px;
+  background: #FFFF82;
+  border: 1px solid #000000;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.radio-list {
+  margin-top: 30px;
+}
+
 .radio {
   display: inline;
+  font-size: 1.8rem;
 }
 
 input[name="sortBy"].checked~label {
@@ -55,10 +54,22 @@ input[name="sortBy"] {
 }
 
 input[name="sortBy"]~label {
-  padding: 0 10px;
+  padding: 5px 40px;
   border-right: 1px solid white;
-  padding-right: 20px;
   position: relative;
+  background-color: #c4c4c4;
+  border-right: 1px solid black;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+}
+
+.radio.radio-inline-first input[name="sortBy"]~label {
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
+}
+
+.radio.radio-inline-last input[name="sortBy"]~label {
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
 .class:last-child label {
@@ -67,11 +78,12 @@ input[name="sortBy"]~label {
 
 i.arrow {
   position: absolute;
-  right: 2px;
-  top: 0.2rem;
-  background-color: white;
-  height: 10px;
-  width: 10px;
+  right: 0.8rem;
+  top: 0.8rem;
+  background-color: black;
+  height: 1rem;
+  width: 1rem;
+  -webkit-clip-path: polygon(0 0, 50% 100%, 100% 0);
   clip-path: polygon(0 0, 50% 100%, 100% 0);
 }
 
