@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import GitHubRepository from './components/githubRespository';
 import GitHubRepositoryCloseUp from './components/githubRespositoryCloseUp';
+import Pagination from './components/pagination';
 import Input from './components/input';
 // import Octicons from './components/octicons';
 import './App.css';
@@ -28,86 +29,32 @@ class App extends Component {
       repositorties: [],
       selectedRepository: {},
       currentUrl: '',
-      // numberOfResultPages: 0,
+      maxNumberOfPages: 5,
+      pagination: {
+        currentPage: 0,
+        // numberOfResultPages: 0,
+        pages: [],
+      },
     };
   }
+
 
   componentDidMount() {
     const search = document.querySelector('#search-term');
     const searchButton = document.querySelector('#search-button');
     const output = document.querySelector('#output');
-    const pages = document.querySelector('#pages');
+    // const pages = document.querySelector('#pages');
     const radios = document.querySelectorAll('input[name="sortBy"]');
 
     const clearOldData = () => {
       output.style.display = 'block';
-      pages.innerHTML = '';
+      // pages.innerHTML = '';
       this.setState({
         repositorties: [],
         selectedRepository: {},
       });
     };
-    const fetchResults = (url) => {
-      fetch(url).then(response => response.json()).then((reps) => {
-        // console.log(reps);
-        output.removeAttribute('style');
-        pages.innerHTML = '';
-        const qs = url.split('?')[1];
-        let page = 1;
-        const total = parseInt(parseInt(reps.total_count, 10) / 100, 10) + 1;
-        // console.log(`Total: ${total}`);
-        if (qs.indexOf('page') > -1) {
-          page = parseInt(qs.split('&').filter(p => p.indexOf('page') > -1)[0].split('=')[1], 10);
-        }
-        let newURL = '';
 
-        if (page === 1) {
-          pages.appendChild(document.createTextNode('1'));
-          // TODO: append 1 to pagenumbers
-          if (total > 1) {
-            const link = document.createElement('a');
-            link.href = '#';
-            link.appendChild(document.createTextNode('Next>>>'));
-            link.addEventListener('click', (e) => {
-              e.preventDefault();
-              clearOldData();
-              newURL = `${this.state.currentUrl}&page=2`;
-              fetchResults(newURL);
-            });
-            pages.appendChild(link);
-          }
-        } else {
-          // TODO: append last, current page, next
-          const backLink = document.createElement('a');
-          backLink.href = '#';
-          backLink.appendChild(document.createTextNode('<<<Previous'));
-          backLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            clearOldData();
-            newURL = `${this.state.currentUrl}&page=${page - 1}`;
-            fetchResults(newURL);
-          });
-          pages.appendChild(backLink);
-
-          pages.appendChild(document.createTextNode(page));
-
-          const nextLink = document.createElement('a');
-          nextLink.href = '#';
-          nextLink.appendChild(document.createTextNode('Next>>>'));
-          nextLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            clearOldData();
-            newURL = `${this.state.currentUrl}&page=${page - 1}`;
-            fetchResults(newURL);
-          });
-          pages.appendChild(nextLink);
-        }
-        this.setState({
-          repositorties: reps.items,
-          // numberOfResultPages: total,
-        });
-      });
-    };
 
     const preformSearch = () => {
       if (search.value === '') return false;
@@ -118,7 +65,7 @@ class App extends Component {
         currentUrl: url,
       });
       clearOldData();
-      fetchResults(url);
+      this.fetchResults(url);
       return true;
     };
     radios.forEach((s) => {
@@ -134,6 +81,37 @@ class App extends Component {
       const key = e.which || e.keyCode;
       // console.log(key);
       if (key === 13) preformSearch();
+    });
+  }
+  fetchResults(url) {
+    fetch(url).then(response => response.json()).then((reps) => {
+      // console.log(reps);
+      const output = document.querySelector('#output');
+      output.removeAttribute('style');
+      // pages.innerHTML = '';
+      let page = 1;
+      const qs = url.split('?')[1];
+      if (qs.indexOf('page') > -1) {
+        page = parseInt(qs.split('&').filter(p => p.indexOf('page') > -1)[0].split('=')[1], 10);
+      }
+      const total = parseInt(parseInt(reps.total_count, 10) / 100, 10) + 1;
+
+      const pages = [];
+      if (page === 1) {
+        let i = page - 2 > -1 ? page - 2 : 0;
+        while (i < total && i <= this.state.maxNumberOfPages) {
+          pages.push(i);
+          i += 1;
+        }
+      }
+      this.setState({
+        repositorties: reps.items,
+        pagination: {
+          currentPage: page,
+          pages: pages.map(p => ({ page: p, click: this.handlePageChange.bind(this, p) })),
+        },
+        // numberOfResultPages: total,
+      });
     });
   }
   /**
@@ -165,6 +143,28 @@ class App extends Component {
         });
       });
   }
+  handlePageChange(page) {
+    const urlSegments = this.state.currentUrl.split('?');
+    const qs = urlSegments[1].split('&');
+    const baseUrl = urlSegments[0];
+    console.log(`urlSegments:${JSON.stringify(urlSegments)}, qs:${JSON.stringify(qs)}, baseUrl:${baseUrl}`);
+    const newUrl = `${baseUrl}?${qs.reduce((a, q, i) => `${a}${(i === 0 ? '' : '&')}${(/page/i.test(q.split('=')[0]) ? '' : q)}`, '')}&page=${page}`;
+    console.log(newUrl);
+    // this.clearOldData();
+    // this.fetchResults(newUrl);
+
+
+    const output = document.querySelector('#output');
+    output.style.display = 'block';
+
+    this.setState({
+      repositorties: [],
+      selectedRepository: {},
+    });
+    // console.log(repository);
+    this.fetchResults(newUrl);
+    output.removeAttribute('style');
+  }
   render() {
     // const desc = 'Quis mollit velit culpa et eu enim duis occaecat anim quis est. Nostrud eiusmod tempor sunt occaecat enim reprehenderit laboris dolor non exercitation quis amet. Est pariatur ad culpa et incididunt pariatur.';
     const html = (
@@ -191,7 +191,7 @@ class App extends Component {
            }
         <div id="output">
           <div className="search-gh"><img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/github.svg" alt="" />
-            <div className="overlay"><img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=05eb19761edddd58032dd4b6668dae3a" alt="" />
+            <div className="overlay"><img src="http://res.cloudinary.com/jrgiantdev/image/upload/b_rgb:6559f3,c_scale,f_auto,o_92,q_auto:good,w_1200/v1531844661/markus-spiske-518966-unsplash_1_bhznls.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -206,7 +206,16 @@ class App extends Component {
             key={rep.id}
           />))}
         </Box>
+        {
+          this.state.pagination.pages.length === 0 ? '' :
+          <Pagination pagination={this.state.pagination} maxPages={this.state.maxNumberOfPages} />
+        }
         <div id="pages" />
+        {
+          // pass in a page array to Pagination
+          // pages = [{number: 1, click: handlePageChange.bind(this, number)}...]
+          // <Pagination pages={array of page objects}
+        }
       </div>);
     return html;
   }
