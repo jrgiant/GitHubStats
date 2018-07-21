@@ -99,7 +99,7 @@ class App extends Component {
       const pages = [];
       if (page === 1) {
         let i = page - 2 > -1 ? page - 2 : 0;
-        while (i < total && i <= this.state.maxNumberOfPages) {
+        while (i < total && i < this.state.maxNumberOfPages) {
           pages.push(i);
           i += 1;
         }
@@ -195,6 +195,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        {this.state.repositorties.length === 0 ? '' :
         <Box>
           {this.state.repositorties.map(rep => (<GitHubRepository
             url="#"
@@ -206,6 +207,7 @@ class App extends Component {
             key={rep.id}
           />))}
         </Box>
+        }
         {
           this.state.pagination.pages.length === 0 ? '' :
           <Pagination pagination={this.state.pagination} maxPages={this.state.maxNumberOfPages} />
