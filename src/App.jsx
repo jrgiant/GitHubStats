@@ -147,9 +147,9 @@ class App extends Component {
     const urlSegments = this.state.currentUrl.split('?');
     const qs = urlSegments[1].split('&');
     const baseUrl = urlSegments[0];
-    console.log(`urlSegments:${JSON.stringify(urlSegments)}, qs:${JSON.stringify(qs)}, baseUrl:${baseUrl}`);
+    // console.log(`urlSegments:${JSON.stringify(urlSegments)}, qs:${JSON.stringify(qs)}, baseUrl:${baseUrl}`);
     const newUrl = `${baseUrl}?${qs.reduce((a, q, i) => `${a}${(i === 0 ? '' : '&')}${(/page/i.test(q.split('=')[0]) ? '' : q)}`, '')}&page=${page}`;
-    console.log(newUrl);
+    // console.log(newUrl);
     // this.clearOldData();
     // this.fetchResults(newUrl);
 

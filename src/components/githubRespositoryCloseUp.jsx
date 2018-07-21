@@ -44,7 +44,7 @@ class GitHubRepositoryCloseUp extends Component {
         const d = new Date(com.commit.author.date).toDateString();
         data[d] = (data[d] || 0) + 1;
       });
-      console.table(data);
+      // console.table(data);
     }
     return (
       <Container>
