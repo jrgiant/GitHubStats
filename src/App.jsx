@@ -199,12 +199,14 @@ class App extends Component {
         <Box>
           {this.state.repositorties.map(rep => (<GitHubRepository
             url="#"
-            name={`${rep.owner.login} \\ ${rep.name}`}
+            login={rep.owner.login}
+            name={rep.name}
             desc={rep.description}
             forks={rep.forks}
             stars={rep.stargazers_count}
             handleClick={this.handleClick.bind(this, rep)}// eslint-disable-line
             key={rep.id}
+            avatar={rep.owner.avatar_url}
           />))}
         </Box>
         }

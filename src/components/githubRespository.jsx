@@ -10,15 +10,18 @@ display:grid;
   grid-row:1;
   position:relative;
   text-align:left;
-  padding-left:30px;
+  padding-left:20%;
   word-wrap:break-word;
-  width:65%
-  overflow:hidden;
-  svg {
+  
+  color:#0000ff;
+  
+  font-weight:normal;
+  img { width: 15%;}
+  svg, img {
      position:absolute;
-        left: 1%;
-    top: 6px;
+    top: 1%;
   }
+  span {font-weight:bold;}
 
 `;
 export const Description = styled.p`
@@ -45,6 +48,7 @@ export const Container = styled.div`
   border: 1px solid grey;
   height:225px;
   padding:20px;
+  overflow:hidden;
   `;
 const Footer = styled.div`
   display:grid;
@@ -64,9 +68,12 @@ class GitHubRepository extends Component {
   //   alert(`You clicked ${props.name}`);
   // }
   render() {
+    console.log(this.props.avatar);
     return (
       <Container onClick={this.props.handleClick}>
-        <Header><Octicons svg="repo" />{this.props.name}</Header>
+        <Header>
+          {this.props.avatar === '' ? <Octicons svg="repo" /> : <img src={this.props.avatar} alt="avatar" />}{this.props.login} \ <span>{this.props.name}</span>
+        </Header>
         <Description>{this.props.desc}</Description>
         <Footer><GitHubLabel name="Forks" svg="repo-forked" value={this.props.forks} /><GitHubLabel name="Stars" svg="star" value={this.props.stars} /></Footer>
       </Container>
@@ -76,11 +83,14 @@ class GitHubRepository extends Component {
 export default GitHubRepository;
 GitHubRepository.propTypes = {
   name: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
   forks: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   desc: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
+  avatar: PropTypes.string,
 };
 GitHubRepository.defaultProps = {
   desc: 'NO DESCRIPTION PROVIDED',
+  avatar: '',
 };
