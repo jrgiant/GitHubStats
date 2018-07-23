@@ -83,42 +83,29 @@ class App extends Component {
       if (key === 13) preformSearch();
     });
   }
-  fetchResults(url) {
-    fetch(url).then(response => response.json()).then((reps) => {
-      // console.log(reps);
-      const output = document.querySelector('#output');
-      output.removeAttribute('style');
-      // pages.innerHTML = '';
-      let page = 1;
-      const qs = url.split('?')[1];
-      if (qs.indexOf('page') > -1) {
-        page = parseInt(qs.split('&').filter(p => p.indexOf('page') > -1)[0].split('=')[1], 10);
-      }
-      const total = parseInt(parseInt(reps.total_count, 10) / 100, 10) + 1;
 
-      const pages = [];
-      if (page === 1) {
-        let i = page - 2 > -1 ? page - 2 : 0;
-        while (i < total && i < this.state.maxNumberOfPages) {
-          pages.push(i);
-          i += 1;
-        }
-      }
-      this.setState({
-        repositorties: reps.items,
-        pagination: {
-          currentPage: page,
-          pages: pages.map(p => ({ page: p, click: this.handlePageChange.bind(this, p) })),
-        },
-        // numberOfResultPages: total,
-      });
-    });
-  }
   /**
    * handles the click event
    * {@linkhttps://stackoverflow.com/a/40722477/1680765}
    * @param {*} repository
    */
+
+  getPageNumber(page) {
+    let newPage;
+    switch (page) {
+      case 'Prev':
+        newPage = this.state.pagination.currentPage - 1;
+        break;
+      case 'Next':
+        newPage = this.state.pagination.currentPage + 1;
+
+        break;
+      default:
+        newPage = parseInt(page, 10);
+        break;
+    }
+    return newPage;
+  }
   handleClick(repository) {
     const pages = document.querySelector('#pages');
     const output = document.querySelector('#output');
@@ -143,12 +130,45 @@ class App extends Component {
         });
       });
   }
+  fetchResults(url) {
+    fetch(url).then(response => response.json()).then((reps) => {
+      // console.log(reps);
+      const output = document.querySelector('#output');
+      output.removeAttribute('style');
+      // pages.innerHTML = '';
+      let page = 1;
+      const qs = url.split('?')[1];
+      if (qs.indexOf('page') > -1) {
+        page = parseInt(qs.split('&').filter(p => p.indexOf('page') > -1)[0].split('=')[1], 10);
+      }
+      const total = parseInt(parseInt(reps.total_count, 10) / 100, 10) + 1;
+
+      const pages = [];
+      if (page > 1) pages.push('Prev');
+      let i = page - 2 > 0 ? page - 2 : 1;
+      let j = 0;
+      while (i < total && j < this.state.maxNumberOfPages) {
+        pages.push(i.toString(10));
+        i += 1;
+        j += 1;
+      }
+      if (page < total - 1) pages.push('Next');
+      this.setState({
+        repositorties: reps.items,
+        pagination: {
+          currentPage: page,
+          pages: pages.map(p => ({ page: p, click: this.handlePageChange.bind(this, p) })),
+        },
+        // numberOfResultPages: total,
+      });
+    });
+  }
   handlePageChange(page) {
     const urlSegments = this.state.currentUrl.split('?');
     const qs = urlSegments[1].split('&');
     const baseUrl = urlSegments[0];
     // console.log(`urlSegments:${JSON.stringify(urlSegments)}, qs:${JSON.stringify(qs)}, baseUrl:${baseUrl}`);
-    const newUrl = `${baseUrl}?${qs.reduce((a, q, i) => `${a}${(i === 0 ? '' : '&')}${(/page/i.test(q.split('=')[0]) ? '' : q)}`, '')}&page=${page}`;
+    const newUrl = `${baseUrl}?${qs.reduce((a, q, i) => `${a}${(i === 0 ? '' : '&')}${(/page/i.test(q.split('=')[0]) ? '' : q)}`, '')}&page=${this.getPageNumber(page)}`;
     // console.log(newUrl);
     // this.clearOldData();
     // this.fetchResults(newUrl);
