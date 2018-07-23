@@ -21,7 +21,7 @@ display:grid;
      position:absolute;
     top: 1%;
   }
-  span {font-weight:bold;}
+  .repository {font-weight:bold;}
 
 `;
 export const Description = styled.p`
@@ -34,7 +34,7 @@ export const Description = styled.p`
   &:after {
     content:'';
     height:30px;
-    width:80%;
+    width:95%;
     background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
     position:absolute;
     bottom:0;
@@ -55,7 +55,9 @@ const Footer = styled.div`
   grid-row:3;
   grid-template-columns:1fr 1fr;
 `;
-
+const Elips = styled.span`
+  font-size:.5rem;
+`;
 class GitHubRepository extends Component {
   constructor(props) {
     super(props);
@@ -68,11 +70,12 @@ class GitHubRepository extends Component {
   //   alert(`You clicked ${props.name}`);
   // }
   render() {
-    console.log(this.props.avatar);
+    const login = this.props.login.length > 14 ? <span>{this.props.login.substring(0, 14)}<Elips>...</Elips></span> : this.props.login;
+    const repository = this.props.name.length > 15 ? <span>{this.props.name.substring(0, 15)}<Elips>...</Elips></span> : this.props.name;
     return (
       <Container onClick={this.props.handleClick}>
         <Header>
-          {this.props.avatar === '' ? <Octicons svg="repo" /> : <img src={this.props.avatar} alt="avatar" />}{this.props.login} \ <span>{this.props.name}</span>
+          {this.props.avatar === '' ? <Octicons svg="repo" /> : <img src={this.props.avatar} alt="avatar" />}{login} \ <span className="repository">{repository}</span>
         </Header>
         <Description>{this.props.desc}</Description>
         <Footer><GitHubLabel name="Forks" svg="repo-forked" value={this.props.forks} /><GitHubLabel name="Stars" svg="star" value={this.props.stars} /></Footer>
