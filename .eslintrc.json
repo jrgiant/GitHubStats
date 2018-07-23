@@ -10,6 +10,7 @@
     ],
     "rules": {
         "jsx-a11y/href-no-hash": "off",
-        "max-len":"off"
+        "max-len":"off",
+        "linebreak-style":["error", "windows"]
     }
 }
