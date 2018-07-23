@@ -206,6 +206,7 @@ class App extends Component {
           stars={this.state.selectedRepository.stargazers_count}
           commits={this.state.selectedRepository.commits}
           language={this.state.selectedRepository.language}
+          link={this.state.selectedRepository.html_url}
         />
 
            }

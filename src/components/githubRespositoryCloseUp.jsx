@@ -48,7 +48,7 @@ class GitHubRepositoryCloseUp extends Component {
     }
     return (
       <Container>
-        <Header><Octicons svg="repo" />{this.props.name}</Header>
+        <Header><Octicons svg="repo" />{this.props.link === '#' ? this.props.name : <a href={this.props.link} target="_blank" rel="noopener noreferrer">{this.props.name}</a>}</Header>
         <Description>{this.props.desc}</Description>
         <Footer>
           <GitHubLabel name="Forks" svg="repo-forked" value={this.props.forks} />
@@ -79,8 +79,10 @@ GitHubRepositoryCloseUp.propTypes = {
   commits: PropTypes.array.isRequired, //eslint-disable-line
   desc: PropTypes.string,
   language: PropTypes.string.isRequired,
+  link: PropTypes.string,
   // handleClick: PropTypes.func.isRequired,
 };
 GitHubRepositoryCloseUp.defaultProps = {
   desc: '',
+  link: '#',
 };
