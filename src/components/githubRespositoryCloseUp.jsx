@@ -19,8 +19,8 @@ const Container = styled.div`
   grid-template-columns:1fr;
   background-color:white;
   border: 1px solid grey;
-  padding:20px;
-  width:100%;
+  padding:2%;
+  width:96%;
   margin-left:auto;
   margin-right:auto;
   text-align:left;
@@ -78,11 +78,12 @@ GitHubRepositoryCloseUp.propTypes = {
   stars: PropTypes.number.isRequired,
   commits: PropTypes.array.isRequired, //eslint-disable-line
   desc: PropTypes.string,
-  language: PropTypes.string.isRequired,
+  language: PropTypes.string,
   link: PropTypes.string,
   // handleClick: PropTypes.func.isRequired,
 };
 GitHubRepositoryCloseUp.defaultProps = {
   desc: '',
   link: '#',
+  language: 'Not Given',
 };
