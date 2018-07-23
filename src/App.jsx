@@ -131,9 +131,19 @@ class App extends Component {
       });
   }
   fetchResults(url) {
+    const output = document.querySelector('#output');
+    output.style.display = 'block';
+    this.setState({
+      repositorties: [],
+      selectedRepository: {},
+      pagination: {
+        currentPage: 0,
+        // numberOfResultPages: 0,
+        pages: [],
+      },
+    });
     fetch(url).then(response => response.json()).then((reps) => {
       // console.log(reps);
-      const output = document.querySelector('#output');
       output.removeAttribute('style');
       // pages.innerHTML = '';
       let page = 1;
@@ -172,18 +182,8 @@ class App extends Component {
     // console.log(newUrl);
     // this.clearOldData();
     // this.fetchResults(newUrl);
-
-
-    const output = document.querySelector('#output');
-    output.style.display = 'block';
-
-    this.setState({
-      repositorties: [],
-      selectedRepository: {},
-    });
     // console.log(repository);
     this.fetchResults(newUrl);
-    output.removeAttribute('style');
   }
   render() {
     // const desc = 'Quis mollit velit culpa et eu enim duis occaecat anim quis est. Nostrud eiusmod tempor sunt occaecat enim reprehenderit laboris dolor non exercitation quis amet. Est pariatur ad culpa et incididunt pariatur.';
