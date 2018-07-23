@@ -190,11 +190,11 @@ class App extends Component {
     const html = (
       <div className="App">
         <section className="search">
-          <div><Input id="search-term" /><button id="search-button" type="button">Search</button></div>
+          <div><Input id="search-term" placeholder="Enter Repository Name" /><button id="search-button" type="button">Search</button></div>
           <div className="radio-list">
             <div className="radio radio-inline-first"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" defaultChecked /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
-            <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Forks<i className="arrow" /></label></div>
-            <div className="radio radio-inline-last"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Stars<i className="arrow" /></label></div>
+            <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Fork Count<i className="arrow" /></label></div>
+            <div className="radio radio-inline-last"><input type="radio" className="desc" name="sortBy" id="stars" /><label htmlFor="stars">Star Gazers<i className="arrow" /></label></div>
           </div>
         </section>
         {Object.keys(this.state.selectedRepository).length === 0 && this.state.selectedRepository.constructor === Object ? '' :

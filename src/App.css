@@ -7,6 +7,7 @@
 .App {
   text-align: center;
   background-color: rgba(255, 255, 255, .95);
+  font-family: Violina;
 }
 
 #output {
@@ -17,15 +18,19 @@
 section.search {
   background-color: #bcebcb;
   text-align: center;
-  height: 264px;
+  padding-top: 95px;
+  padding-bottom: 55px;
+  /* height: 264px; */
 }
 
 input#search-term {
   line-height: 62px;
   font-size: 50px;
   border-radius: 10px;
-  margin-top: 95px;
-  margin-right: 80px;
+  /* margin-top: 65px; */
+  margin-right: 60px;
+  width: 70%;
+  padding-left: 25px;
 }
 
 button#search-button {
@@ -37,16 +42,20 @@ button#search-button {
 }
 
 .radio-list {
-  margin-top: 30px;
+  margin-top: 50px;
+  /* margin-bottom: 40px; */
+  font-size: 36px;
+  line-height: 38px;
 }
 
 .radio {
   display: inline;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
 }
 
 input[name="sortBy"].checked~label {
   font-weight: bold;
+  background-color: #d4d4d4;
 }
 
 input[name="sortBy"] {
@@ -54,12 +63,16 @@ input[name="sortBy"] {
 }
 
 input[name="sortBy"]~label {
-  padding: 5px 40px;
+  padding: 10px 40px;
   border-right: 1px solid white;
   position: relative;
   background-color: #c4c4c4;
   border-right: 1px solid black;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+}
+
+input[name="sortBy"]~label:hover {
+  background-color: #d4d4d4;
 }
 
 .radio.radio-inline-first input[name="sortBy"]~label {
@@ -79,7 +92,7 @@ input[name="sortBy"]~label {
 i.arrow {
   position: absolute;
   right: 0.8rem;
-  top: 0.8rem;
+  top: 1.4rem;
   background-color: black;
   height: 1rem;
   width: 1rem;
