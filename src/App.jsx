@@ -13,11 +13,12 @@ const Box = styled.div`
   grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
   margin-left:auto;
   margin-right:auto;
-  max-height:70vh;
+  // max-height:70vh;
   overflow-y:auto;
   gap:20px;
   padding:10px;
   background-color:#f5f7dc;
+  padding-top:55px;
   @media (max-width:768px){
     width:100%;
   }
@@ -29,7 +30,7 @@ class App extends Component {
       repositorties: [],
       selectedRepository: {},
       currentUrl: '',
-      maxNumberOfPages: 5,
+      maxNumberOfPages: 3,
       pagination: {
         currentPage: 0,
         // numberOfResultPages: 0,
@@ -114,6 +115,11 @@ class App extends Component {
     this.setState({
       repositorties: [],
       selectedRepository: {},
+      pagination: {
+        currentPage: 0,
+        // numberOfResultPages: 0,
+        pages: [],
+      },
     });
     // console.log(repository);
     const date = new Date();
@@ -190,7 +196,7 @@ class App extends Component {
     const html = (
       <div className="App">
         <section className="search">
-          <div><Input id="search-term" placeholder="Enter Repository Name" /><button id="search-button" type="button">Search</button></div>
+          <div className="searchInput"><Input id="search-term" placeholder="Enter Repository Name" /><button id="search-button" type="button">Search</button></div>
           <div className="radio-list">
             <div className="radio radio-inline-first"><input type="radio" className="desc checked" data-order-by="desc" name="sortBy" id="updated" defaultChecked /><label htmlFor="updated">Last Updated<i className="arrow" /></label></div>
             <div className="radio"><input type="radio" className="desc" name="sortBy" id="forks" /><label htmlFor="forks">Fork Count<i className="arrow" /></label></div>

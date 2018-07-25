@@ -18,8 +18,8 @@
 section.search {
   background-color: #bcebcb;
   text-align: center;
-  padding-top: 95px;
-  padding-bottom: 55px;
+  padding-top: 80px;
+  padding-bottom: 50px;
   /* height: 264px; */
 }
 
@@ -28,9 +28,13 @@ input#search-term {
   font-size: 50px;
   border-radius: 10px;
   /* margin-top: 65px; */
-  margin-right: 60px;
-  width: 70%;
-  padding-left: 25px;
+  /* margin-right: 60px; */
+  /* width: 70%; */
+  padding-left: 4%;
+}
+
+input#search-term::placeholder {
+  color: lightgray;
 }
 
 button#search-button {
@@ -42,7 +46,7 @@ button#search-button {
 }
 
 .radio-list {
-  margin-top: 50px;
+  margin-top: 35px;
   /* margin-bottom: 40px; */
   font-size: 36px;
   line-height: 38px;
@@ -63,12 +67,20 @@ input[name="sortBy"] {
 }
 
 input[name="sortBy"]~label {
-  padding: 10px 40px;
+  padding: 10px 60px;
   border-right: 1px solid white;
   position: relative;
   background-color: #c4c4c4;
   border-right: 1px solid black;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+}
+
+section.search .searchInput {
+  display: grid;
+  grid-template-columns: 1fr 270px;
+  gap: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 input[name="sortBy"]~label:hover {
@@ -83,6 +95,7 @@ input[name="sortBy"]~label:hover {
 .radio.radio-inline-last input[name="sortBy"]~label {
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
+  border-right:none;
 }
 
 .class:last-child label {

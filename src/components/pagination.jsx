@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.div`
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  position:sticky;
+  bottom:20px;
 `;
 const PageLink = styled.div`
 background-color: #E65F5C;
